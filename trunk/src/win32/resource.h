@@ -883,13 +883,15 @@
 #define ID_OPTIONS_EMULATOR_DIRECTORIES 40374
 #define ID_Menu40375                    40375
 #define ID_OPTIONS_JOYBUS               40376
+#define ID_Menu40377                    40377
+#define ID_OPTIONS_VIDEO_CUSTOM         40378
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        166
-#define _APS_NEXT_COMMAND_VALUE         40377
+#define _APS_NEXT_COMMAND_VALUE         40379
 #define _APS_NEXT_CONTROL_VALUE         1299
 #define _APS_NEXT_SYMED_VALUE           103
 #endif

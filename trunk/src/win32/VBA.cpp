@@ -545,7 +545,7 @@ void VBA::adjustDestRect()
     dest.right -= windowPositionX;
   }
 
-  if(videoOption > VIDEO_6X) {
+  if(videoOption > VIDEO_CUSTOM) {
 	  if(fullScreenStretch) {
 		  dest.top = 0;
 		  dest.left = 0;
@@ -1417,6 +1417,13 @@ void VBA::loadSettings()
   if(windowPositionY < 0)
     windowPositionY = 0;
 
+  windowSizeX = regQueryDwordValue("windowW", 300);
+  if(windowSizeX < 0)
+    windowSizeX = 300;
+  windowSizeY = regQueryDwordValue("windowH", 200);
+  if(windowSizeY < 0)
+    windowSizeY = 200;
+
   maxCpuCores = regQueryDwordValue("maxCpuCores", 0);
   if(maxCpuCores == 0) {
 	  maxCpuCores = detectCpuCores();
@@ -1701,6 +1708,9 @@ void VBA::updateVideoSize(UINT id)
   case ID_OPTIONS_VIDEO_X6:
     value = VIDEO_6X;
     break;
+  case ID_OPTIONS_VIDEO_CUSTOM:
+    value = VIDEO_CUSTOM;
+    break;
   case ID_OPTIONS_VIDEO_FULLSCREEN320X240:
     value = VIDEO_320x240;
     fsWidth = 320;
@@ -1880,7 +1890,7 @@ void VBA::updateWindowSize(int value)
   int winSizeX = sizeX;
   int winSizeY = sizeY;
 
-  if(videoOption <= VIDEO_6X) {
+  if(videoOption <= VIDEO_CUSTOM) {
     dest.left = 0;
     dest.top = 0;
     dest.right = surfaceSizeX;
@@ -1894,6 +1904,15 @@ void VBA::updateWindowSize(int value)
 
     winSizeX = dest.right-dest.left;
     winSizeY = dest.bottom-dest.top;
+
+	if( videoOption == VIDEO_CUSTOM ) {
+		winSizeX = windowSizeX;
+		winSizeY = windowSizeY;
+		RECT r = {0, 0, 0, 0};
+		AdjustWindowRectEx( &r, style, TRUE, 0 );
+		surfaceSizeX = windowSizeX - r.right;
+		surfaceSizeY = windowSizeY - r.bottom;
+	}
 
       m_pMainWnd->SetWindowPos(0, //HWND_TOPMOST,
                                windowPositionX,
@@ -2016,13 +2035,13 @@ bool VBA::preInitialize()
 	DWORD style = WS_POPUP | WS_VISIBLE;
 	DWORD styleEx = 0;
 
-	if( videoOption <= VIDEO_6X ) {
+	if( videoOption <= VIDEO_CUSTOM ) {
 		style |= WS_OVERLAPPEDWINDOW;
 	} else {
 		styleEx = 0;
 	}
 
-	if( videoOption <= VIDEO_6X ) {
+	if( videoOption <= VIDEO_CUSTOM ) {
 		AdjustWindowRectEx( &dest, style, TRUE, styleEx );
 	} else {
 		AdjustWindowRectEx( &dest, style, FALSE, styleEx );
@@ -2031,14 +2050,23 @@ bool VBA::preInitialize()
 	int winSizeX = dest.right-dest.left;
 	int winSizeY = dest.bottom-dest.top;
 
-	if( videoOption > VIDEO_6X ) {
+	if( videoOption > VIDEO_CUSTOM ) {
 		winSizeX = fsWidth;
 		winSizeY = fsHeight;
 	}
 
+	if( videoOption == VIDEO_CUSTOM ) {
+		winSizeX = windowSizeX;
+		winSizeY = windowSizeY;
+		RECT r = {0, 0, 0, 0};
+		AdjustWindowRectEx( &r, style, TRUE, styleEx );
+		surfaceSizeX = windowSizeX - r.right;
+		surfaceSizeY = windowSizeY - r.bottom;
+	}
+
 	int x = 0, y = 0;
 
-	if( videoOption <= VIDEO_6X ) {
+	if( videoOption <= VIDEO_CUSTOM ) {
 		x = windowPositionX;
 		y = windowPositionY;
 	}
@@ -2063,6 +2091,7 @@ bool VBA::preInitialize()
 		winlog( "Error creating Window %08x\n", GetLastError() );
 		return false;
 	}
+
 	pWnd->DragAcceptFiles( TRUE );
 	updateMenuBar();
 	adjustDestRect();
@@ -2453,6 +2482,8 @@ void VBA::saveSettings()
 
   regSetDwordValue("windowX", windowPositionX);
   regSetDwordValue("windowY", windowPositionY);
+  regSetDwordValue("windowW", windowSizeX);
+  regSetDwordValue("windowH", windowSizeY);
 
   regSetDwordValue("maxCpuCores", maxCpuCores);
 

@@ -19,7 +19,7 @@
 //
 
 enum VIDEO_SIZE{
-  VIDEO_1X, VIDEO_2X, VIDEO_3X, VIDEO_4X, VIDEO_5X, VIDEO_6X,
+  VIDEO_1X, VIDEO_2X, VIDEO_3X, VIDEO_4X, VIDEO_5X, VIDEO_6X, VIDEO_CUSTOM,
   VIDEO_320x240, VIDEO_640x480, VIDEO_800x600, VIDEO_1024x768, VIDEO_1280x1024,
   VIDEO_OTHER
 };
@@ -62,6 +62,8 @@ class VBA : public CWinApp
   unsigned int maxCpuCores; // maximum number of CPU cores VBA should use, 0 means auto-detect
   int windowPositionX;
   int windowPositionY;
+  int windowSizeX;
+  int windowSizeY;
   void (*filterFunction)(u8*,u32,u8*,u8*,u32,int,int);
   void (*ifbFunction)(u8*,u32,int,int);
   int ifbType;

@@ -128,6 +128,7 @@ BEGIN_MESSAGE_MAP(MainWnd, CWnd)
   ON_UPDATE_COMMAND_UI(ID_OPTIONS_VIDEO_X4, OnUpdateOptionsVideoX4)
   ON_UPDATE_COMMAND_UI(ID_OPTIONS_VIDEO_X5, OnUpdateOptionsVideoX5)
   ON_UPDATE_COMMAND_UI(ID_OPTIONS_VIDEO_X6, OnUpdateOptionsVideoX6)
+  ON_UPDATE_COMMAND_UI(ID_OPTIONS_VIDEO_CUSTOM, OnUpdateOptionsVideoCustom)
   ON_COMMAND(ID_OPTIONS_VIDEO_FULLSCREEN, OnOptionsVideoFullscreen)
   ON_UPDATE_COMMAND_UI(ID_OPTIONS_VIDEO_FULLSCREEN, OnUpdateOptionsVideoFullscreen)
   ON_WM_MOVING()
@@ -338,6 +339,7 @@ BEGIN_MESSAGE_MAP(MainWnd, CWnd)
   ON_COMMAND_EX_RANGE(ID_OPTIONS_VIDEO_FRAMESKIP_0, ID_OPTIONS_VIDEO_FRAMESKIP_5, OnOptionsFrameskip)
   ON_COMMAND_EX_RANGE(ID_OPTIONS_VIDEO_FRAMESKIP_6, ID_OPTIONS_VIDEO_FRAMESKIP_9, OnOptionsFrameskip)
   ON_COMMAND_EX_RANGE(ID_OPTIONS_VIDEO_X1, ID_OPTIONS_VIDEO_X6, OnOptionVideoSize)
+  ON_COMMAND_EX(ID_OPTIONS_VIDEO_CUSTOM, OnOptionVideoSize)
   ON_COMMAND_EX_RANGE(ID_OPTIONS_VIDEO_LAYERS_BG0, ID_OPTIONS_VIDEO_LAYERS_OBJWIN, OnVideoLayer)
   ON_UPDATE_COMMAND_UI_RANGE(ID_OPTIONS_VIDEO_LAYERS_BG0, ID_OPTIONS_VIDEO_LAYERS_OBJWIN, OnUpdateVideoLayer)
   ON_COMMAND(ID_OPTIONS_VIDEO_LAYERS_RESET, OnVideoLayerReset)
@@ -772,7 +774,7 @@ void MainWnd::OnSize(UINT nType, int cx, int cy)
             theApp.paused = false;
           }
         }
-        if(theApp.videoOption <= VIDEO_6X) {
+        if(theApp.videoOption <= VIDEO_CUSTOM) {
           theApp.surfaceSizeX = cx;
           theApp.surfaceSizeY = cy;
           theApp.adjustDestRect();
@@ -784,6 +786,12 @@ void MainWnd::OnSize(UINT nType, int cx, int cy)
 			  theApp.painting = false;
 			  theApp.renderedFrames--;
 		  }
+		  RECT r;
+		  GetWindowRect(&r);
+		  theApp.windowSizeX = r.right;
+		  theApp.windowSizeY = r.bottom;
+		  regSetDwordValue("windowW", theApp.windowSizeX);
+		  regSetDwordValue("windowH", theApp.windowSizeY);
         }
       } else {
         if(emulating) {

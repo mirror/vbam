@@ -272,12 +272,12 @@ bool OpenGLDisplay::initialize()
 	DWORD style = WS_POPUP | WS_VISIBLE;
 	DWORD styleEx = 0;
 
-	if( theApp.videoOption <= VIDEO_6X )
+	if( theApp.videoOption <= VIDEO_CUSTOM )
 		style |= WS_OVERLAPPEDWINDOW;
 	else
 		styleEx = 0;
 
-	if( theApp.videoOption <= VIDEO_6X )
+	if( theApp.videoOption <= VIDEO_CUSTOM )
 		AdjustWindowRectEx( &theApp.dest, style, TRUE, styleEx );
 	else
 		AdjustWindowRectEx( &theApp.dest, style, FALSE, styleEx );
@@ -286,15 +286,17 @@ bool OpenGLDisplay::initialize()
 	int winSizeY = theApp.dest.bottom - theApp.dest.top;
 	int x = 0, y = 0;
 
-	if( theApp.videoOption <= VIDEO_6X ) {
+	if( theApp.videoOption <= VIDEO_CUSTOM ) {
 		x = theApp.windowPositionX;
 		y = theApp.windowPositionY;
 	} else {
 		winSizeX = theApp.fsWidth;
 		winSizeY = theApp.fsHeight;
 	}
-
-	
+	if( theApp.videoOption == VIDEO_CUSTOM ) {
+		winSizeX = theApp.windowSizeX;
+		winSizeY = theApp.windowSizeY;
+	}
 
 	theApp.updateMenuBar();
 

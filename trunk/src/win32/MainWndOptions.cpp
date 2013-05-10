@@ -282,6 +282,11 @@ void MainWnd::OnUpdateOptionsVideoX6(CCmdUI* pCmdUI)
   pCmdUI->SetCheck(theApp.videoOption == VIDEO_6X);
 }
 
+void MainWnd::OnUpdateOptionsVideoCustom(CCmdUI* pCmdUI)
+{
+  pCmdUI->SetCheck(theApp.videoOption == VIDEO_CUSTOM);
+}
+
 BOOL MainWnd::OnOptionVideoSize(UINT nID)
 {
 	theApp.updateVideoSize(nID);

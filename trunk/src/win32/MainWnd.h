@@ -133,6 +133,7 @@ protected:
 	afx_msg void OnUpdateOptionsVideoX4(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsVideoX5(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsVideoX6(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateOptionsVideoCustom(CCmdUI* pCmdUI);
 	afx_msg void OnOptionsVideoFullscreen();
 	afx_msg void OnUpdateOptionsVideoFullscreen(CCmdUI* pCmdUI);
 	afx_msg void OnMove(int x, int y);

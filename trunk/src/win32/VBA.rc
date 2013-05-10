@@ -1743,6 +1743,7 @@ BEGIN
             MENUITEM "4x window size",              ID_OPTIONS_VIDEO_X4
             MENUITEM "5x window size",              ID_OPTIONS_VIDEO_X5
             MENUITEM "6x window size",              ID_OPTIONS_VIDEO_X6
+            MENUITEM "Custom window size",          ID_OPTIONS_VIDEO_CUSTOM
             MENUITEM SEPARATOR
             MENUITEM "Select fullscreen mode...",   ID_OPTIONS_VIDEO_FULLSCREEN
             MENUITEM SEPARATOR

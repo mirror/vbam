@@ -94,6 +94,7 @@ struct {
   { "OptionsVideoX4", ID_OPTIONS_VIDEO_X4 },
   { "OptionsVideoX5", ID_OPTIONS_VIDEO_X5 },
   { "OptionsVideoX6", ID_OPTIONS_VIDEO_X6 },
+  { "OptionsVideoCustom", ID_OPTIONS_VIDEO_CUSTOM },
   { "OptionsVideo320x240", ID_OPTIONS_VIDEO_FULLSCREEN320X240 },
   { "OptionsVideo640x480", ID_OPTIONS_VIDEO_FULLSCREEN640X480 },
   { "OptionsVideo800x600", ID_OPTIONS_VIDEO_FULLSCREEN800X600 },
