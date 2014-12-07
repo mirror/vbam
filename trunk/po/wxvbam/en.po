@@ -1196,11 +1196,11 @@ msgstr "Connecting to %s\n"
 msgid ""
 "Copyright (C) 1999-2003 Forgotten\n"
 "Copyright (C) 2004-2006 VBA development team\n"
-"Copyright (C) 2007-2011 VBA-M development team"
+"Copyright (C) 2007-2014 VBA-M development team"
 msgstr ""
 "Copyright (C) 1999-2003 Forgotten\n"
 "Copyright (C) 2004-2006 VBA development team\n"
-"Copyright (C) 2007-2011 VBA-M development team"
+"Copyright (C) 2007-2014 VBA-M development team"
 
 #: ../src/wx/wxvbam.cpp:208
 msgid "Could not create main window"
